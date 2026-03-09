@@ -1,0 +1,69 @@
+name: Validate Config
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install YAML parser
+        run: pip install pyyaml
+
+      - name: Validate JSON and YAML files
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          import yaml
+
+          root = Path(".")
+          patterns = ("*.json", "*.yml", "*.yaml")
+          files = sorted(
+              {
+                  path
+                  for pattern in patterns
+                  for path in root.rglob(pattern)
+                  if path.is_file()
+              }
+          )
+
+          if not files:
+              raise SystemExit("No JSON or YAML files found")
+
+          failures = []
+
+          for path in files:
+              try:
+                  if path.stat().st_size == 0:
+                      print(f"skipped empty placeholder {path}")
+                      continue
+                  text = path.read_text(encoding="utf-8")
+                  if path.suffix == ".json":
+                      json.loads(text)
+                  else:
+                      yaml.safe_load(text)
+                  print(f"validated {path}")
+              except Exception as exc:
+                  failures.append(f"{path}: {exc}")
+
+          if failures:
+              print("")
+              print("Validation failures:")
+              for failure in failures:
+                  print(f"- {failure}")
+              raise SystemExit(1)
+          PY
