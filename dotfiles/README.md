@@ -33,6 +33,10 @@ All live configs are symlinked from this repo to their expected locations. This 
 # Clone
 git clone git@github.com:MattMatheus/tooling.git ~/Workspace/repos/tooling
 
+# Git identity
+git config --global user.name "matt.matheus"
+git config --global user.email "matt.matheus@outlook.com"
+
 # Claude Code permissions
 ln -s ~/Workspace/repos/tooling/dotfiles/claude/code/permissions-baseline.json ~/.claude/settings.json
 
