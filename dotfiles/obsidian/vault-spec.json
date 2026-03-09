@@ -1,0 +1,93 @@
+{
+  "obsidian_vaults": {
+    "spec_version": "1.0",
+    "implementation_notes": "Create each vault as an independent Obsidian vault. Apply .obsidian config per vault. Do not share vault configs.",
+    "vaults": [
+      {
+        "id": "sre-ai",
+        "name": "SRE · AI · Hard Science",
+        "purpose": "Capture and reference for SRE engineering, hard science, and AI research",
+        "color_accent": "#4A90D9",
+        "folder_structure": [
+          "inbox",
+          "reference",
+          "projects",
+          "daily",
+          "assets"
+        ],
+        "tags": [
+          "incident",
+          "postmortem",
+          "research",
+          "ai",
+          "architecture",
+          "tooling"
+        ],
+        "plugins": [
+          "dataview",
+          "templater-obsidian",
+          "obsidian-icon-folder",
+          "minimal-theme-settings",
+          "quickadd"
+        ],
+        "theme": "minimal",
+        "settings": {
+          "daily_notes": {
+            "enabled": true,
+            "folder": "daily",
+            "auto_open_on_launch": true
+          },
+          "quick_capture": {
+            "enabled": true,
+            "target_folder": "inbox"
+          }
+        }
+      },
+      {
+        "id": "music-live-sound",
+        "name": "Music · Live Sound",
+        "purpose": "Capture and reference for music production, live sound operation, and volunteer documentation",
+        "color_accent": "#E8854A",
+        "folder_structure": [
+          "inbox",
+          "reference",
+          "projects",
+          "daily",
+          "assets"
+        ],
+        "tags": [
+          "production",
+          "live",
+          "gear",
+          "technique",
+          "project",
+          "volunteerDocs"
+        ],
+        "plugins": [
+          "dataview",
+          "templater-obsidian",
+          "obsidian-icon-folder",
+          "minimal-theme-settings",
+          "quickadd"
+        ],
+        "theme": "minimal",
+        "settings": {
+          "daily_notes": {
+            "enabled": true,
+            "folder": "daily",
+            "auto_open_on_launch": true
+          },
+          "quick_capture": {
+            "enabled": true,
+            "target_folder": "inbox"
+          }
+        }
+      }
+    ],
+    "sync": {
+      "provider": "obsidian_sync",
+      "scope": "both_vaults",
+      "git_managed_vaults": "deferred"
+    }
+  }
+}
