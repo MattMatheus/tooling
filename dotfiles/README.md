@@ -2,6 +2,8 @@
 
 Personal dotfiles and tool configurations. Source of truth for all symlinked tool configs across machines.
 
+For Ubuntu/Kubuntu workstation rebuilds, use `bootstrap/ubuntu-kubuntu-dev-host.sh` plus [UBUNTU_KUBUNTU_BOOTSTRAP.md](/home/matt/Workspace/repos/trusted/tooling/dotfiles/UBUNTU_KUBUNTU_BOOTSTRAP.md).
+
 ## Structure
 
 ```
@@ -53,6 +55,13 @@ ln -s ~/Workspace/repos/tooling/dotfiles/zed/settings.json ~/.config/zed/setting
 
 # Karabiner (macOS only; use the profile matching your keyboard)
 # Import the relevant JSON via Karabiner-Elements UI or CLI
+```
+
+For an Ubuntu/Kubuntu rebuild, prefer the scripted bootstrap:
+
+```bash
+cd ~/Workspace/repos/trusted/tooling
+./bootstrap/ubuntu-kubuntu-dev-host.sh
 ```
 
 If the repo lives at a different path on a given machine, substitute that path in the symlink commands. On this Mint machine the current path is `~/Workspace/repos/trusted/tooling`.
