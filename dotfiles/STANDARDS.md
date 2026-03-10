@@ -18,7 +18,8 @@ This repo is the source of truth for shared tool configuration that is symlinked
 
 - Default to read-oriented and inspection-oriented capabilities.
 - Allow only narrowly scoped shell commands that support normal repo work.
-- Explicitly deny destructive commands such as force-push, hard reset, recursive delete, and `sudo`.
+- Keep a shared baseline profile for normal work and separate machine-bootstrap profiles when a host needs broader setup permissions.
+- Explicitly deny destructive commands such as force-push, hard reset, recursive delete, and broad `sudo`.
 - Expand permissions by adding specific command patterns, not broad wildcards.
 
 ### Zed settings

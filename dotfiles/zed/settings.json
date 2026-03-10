@@ -16,7 +16,7 @@
     {
       "context": "Workspace",
       "bindings": {
-        "ctrl-alt-cmd-shift-v": "editor::ToggleVimMode"
+        "ctrl-alt-shift-v": "editor::ToggleVimMode"
       }
     }
   ]
