@@ -1,0 +1,36 @@
+{
+  "$schema": "https://zed.dev/schema/themes/v0.2.0.json",
+  "name": "calm",
+  "author": "mattmatheus",
+  "themes": [
+    {
+      "name": "Calm",
+      "appearance": "dark",
+      "style": {
+        "background": "#1e1c1a",
+        "foreground": "#e8e4de",
+        "accent": "#7d9eb5",
+        "editor.background": "#252320",
+        "editor.foreground": "#e8e4de",
+        "editor.gutter.background": "#1e1c1a",
+        "editor.line_number": "#736d65",
+        "editor.active_line.background": "#2d2b28",
+        "editor.active_line_number": "#b0aa9e",
+        "selection": "#3e3b38",
+        "panel.background": "#2d2b28"
+      },
+      "syntax": {
+        "comment": { "color": "#736d65", "font_style": "italic" },
+        "keyword": { "color": "#9b7aaa" },
+        "string": { "color": "#b5a96a" },
+        "function": { "color": "#6e9e9e" },
+        "variable": { "color": "#e8e4de" },
+        "type": { "color": "#7aab85" },
+        "constant": { "color": "#b5895a" },
+        "punctuation": { "color": "#b0aa9e" },
+        "attribute": { "color": "#7a9bb5" },
+        "error": { "color": "#c47a7a" }
+      }
+    }
+  ]
+}

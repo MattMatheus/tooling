@@ -1,0 +1,21 @@
+[meta]
+name = "calm"
+variant = "default"
+
+[colors]
+bg0 = "#252320"
+bg1 = "#1e1c1a"
+bg2 = "#2d2b28"
+bg3 = "#353330"
+bg4 = "#3e3b38"
+fg0 = "#e8e4de"
+fg1 = "#b0aa9e"
+fg2 = "#736d65"
+accent = "#7d9eb5"
+red = "#c47a7a"
+orange = "#b5895a"
+yellow = "#b5a96a"
+green = "#7aab85"
+cyan = "#6e9e9e"
+blue = "#7a9bb5"
+magenta = "#9b7aaa"
