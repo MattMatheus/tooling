@@ -1,0 +1,95 @@
+#!/usr/bin/env zsh
+set -euo pipefail
+
+# ── helpers ──────────────────────────────────────────────────────────────────
+
+red()   { printf '\033[0;31m%s\033[0m\n' "$*"; }
+green() { printf '\033[0;32m%s\033[0m\n' "$*"; }
+bold()  { printf '\033[1m%s\033[0m\n'    "$*"; }
+
+# Sets REPLY to user input, falling back to default if empty
+prompt_value() {
+  local label="$1"
+  local default="$2"
+  printf '  %-20s [%s]: ' "$label" "$default"
+  read -r REPLY
+  REPLY="${REPLY:-$default}"
+}
+
+is_yes() { [[ "$1:l" == "y" || "$1:l" == "yes" ]]; }
+
+# ── subscription context ──────────────────────────────────────────────────────
+
+if ! az account show &>/dev/null; then
+  red "Not logged in to Azure. Run: az login"
+  exit 1
+fi
+
+SUB_NAME=$(az account show --query "name" -o tsv)
+SUB_ID=$(az account show --query "id" -o tsv)
+
+echo
+bold "Current subscription:"
+echo "  $SUB_NAME ($SUB_ID)"
+echo
+printf 'Create a new resource group in %s? [y/N] ' "$SUB_NAME"
+read -r confirm
+is_yes "$confirm" || { echo "Aborted."; exit 0; }
+
+# ── resource group name & location ───────────────────────────────────────────
+
+echo
+bold "Resource group details"
+echo
+printf '  %-20s: ' "Name"
+read -r RG_NAME
+[[ -n "$RG_NAME" ]] || { red "Name is required."; exit 1; }
+
+prompt_value "Location" "eastus";       LOCATION=$REPLY
+
+# ── tags ─────────────────────────────────────────────────────────────────────
+
+echo
+bold "Tags  (press Enter to accept default)"
+echo
+
+prompt_value "AllocationType"  "No Allocation Type"; AllocationType=$REPLY
+prompt_value "Class"           "Technology";         Class=$REPLY
+prompt_value "CostCenter"      "Ignite";             CostCenter=$REPLY
+prompt_value "Customer"        "Health Catalyst";    Customer=$REPLY
+prompt_value "HCBusinessUnit"  "Health Catalyst";    HCBusinessUnit=$REPLY
+prompt_value "Product"         "CDP";                Product=$REPLY
+
+# ── confirm & create ─────────────────────────────────────────────────────────
+
+echo
+bold "Summary"
+echo "  Name:         $RG_NAME"
+echo "  Location:     $LOCATION"
+echo "  Subscription: $SUB_NAME"
+echo "  Tags:"
+echo "    AllocationType  = $AllocationType"
+echo "    Class           = $Class"
+echo "    CostCenter      = $CostCenter"
+echo "    Customer        = $Customer"
+echo "    HCBusinessUnit  = $HCBusinessUnit"
+echo "    Product         = $Product"
+echo
+printf 'Proceed? [y/N] '
+read -r proceed
+is_yes "$proceed" || { echo "Aborted."; exit 0; }
+
+echo
+az group create \
+  --name "$RG_NAME" \
+  --location "$LOCATION" \
+  --tags \
+    "AllocationType=$AllocationType" \
+    "Class=$Class" \
+    "CostCenter=$CostCenter" \
+    "Customer=$Customer" \
+    "HCBusinessUnit=$HCBusinessUnit" \
+    "Product=$Product" \
+  --output table
+
+green "Resource group '$RG_NAME' created."
